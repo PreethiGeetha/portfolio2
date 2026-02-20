@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Preethi | Portfolio</title>
+
+<style>
+/* ---------- GLOBAL ---------- */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body{
+  background:#0a0a0a;
+  color:#fff;
+  overflow-x:hidden;
+}
+
+/* ---------- ANIMATION BACKGROUND ---------- */
+#bg-canvas{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index:-1;
+  opacity:0.45;          /* watermark transparency */
+  pointer-events:none;
+}
+
+/* ---------- CONTENT CONTAINER ---------- */
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:60px 20px;
+  backdrop-filter: blur(2px);
+}
+
+/* ---------- HEADER ---------- */
+header{
+  text-align:center;
+  margin-bottom:60px;
+}
+
+header h1{
+  font-size:3rem;
+  letter-spacing:2px;
+  color:#00f2ff;
+}
+
+header p{
+  opacity:.8;
+  margin-top:10px;
+}
+
+/* ---------- SECTION ---------- */
+.section{
+  margin-bottom:50px;
+  padding:25px;
+  background:rgba(255,255,255,0.04);
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,0.08);
+  box-shadow:0 0 25px rgba(0,255,255,0.08);
+}
+
+.section h2{
+  color:#00f2ff;
+  margin-bottom:15px;
+}
+
+/* ---------- LIST STYLE ---------- */
+ul{
+  padding-left:20px;
+  line-height:1.7;
+}
+
+/* ---------- CONTACT ---------- */
+.contact p{
+  margin:6px 0;
+}
+
+/* ---------- FOOTER ---------- */
+footer{
+  text-align:center;
+  margin-top:60px;
+  opacity:.6;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<div class="container">
+
+<header>
+  <h1>PREETHI</h1>
+  <p>ECE Student • Tech Enthusiast</p>
+</header>
+
+<!-- PROFILE -->
+<div class="section">
+  <h2>Profile</h2>
+  <p>
+    An enthusiastic engineering undergraduate interested in the software industry, 
+    with basic knowledge in Linux, DevOps and problem solving looking for an 
+    opportunity to apply and enhance technical skills in a professional environment 
+    and contribute to innovative tech solutions.
+  </p>
+</div>
+
+<!-- EDUCATION -->
+<div class="section">
+  <h2>Education</h2>
+  <ul>
+    <li><b>Government College of Engineering, Tirunelveli</b><br>
+        B.E. Electronics & Communication Engineering (2023 — 2027)<br>
+        CGPA: 8.57
+    </li>
+
+    <li><b>Boo Vijesh Matric Hr. Sec School, Mukkudal</b><br>
+        Higher Secondary (2022 — 2023)<br>
+        Score: 93.7%
+    </li>
+  </ul>
+</div>
+
+<!-- SKILLS -->
+<div class="section">
+  <h2>Skills</h2>
+  <ul>
+    <li>DevOps (Basic)</li>
+    <li>Linux (Basic)</li>
+    <li>Python (Intermediate)</li>
+    <li>C++ (Basic)</li>
+    <li>C Programming (Basic)</li>
+    <li>Java (Basic)</li>
+    <li>MS Excel</li>
+  </ul>
+</div>
+
+<!-- PROJECT -->
+<div class="section">
+  <h2>Project</h2>
+  <p>
+    <b>Automatic Water Irrigation System</b><br>
+    Using Soil Moisture Sensor and Arduino UNO
+  </p>
+</div>
+
+<!-- CERTIFICATIONS -->
+<div class="section">
+  <h2>Certifications & Achievements</h2>
+  <ul>
+    <li>Foundation Course on IR 4.0 Technologies</li>
+    <li>Presented paper on Cyber Security & Network Communication — Won 1st Prize</li>
+    <li>Regular coding practice on HackerRank</li>
+    <li>Industrial Visit Representative</li>
+    <li>Master of Ceremony — Symposium</li>
+  </ul>
+</div>
+
+<!-- LANGUAGES -->
+<div class="section">
+  <h2>Languages</h2>
+  <p>Tamil • English • Hindi (Basic)</p>
+</div>
+
+<!-- HOBBIES -->
+<div class="section">
+  <h2>Hobbies</h2>
+  <p>Chess • Carrom • Movies • Music • Dance</p>
+</div>
+
+<!-- CONTACT -->
+<div class="section contact">
+  <h2>Contact</h2>
+  <p>Email: preethi41105@gmail.com</p>
+  <p>Phone: 9940941805</p>
+  <p>Location: Tirunelveli — 627603</p>
+</div>
+
+<footer>
+  © 2026 Preethi — Portfolio
+</footer>
+
+</div>
+
+<script>
+/* ---------- SCROLL ANIMATION ---------- */
+
+const frameCount = 240;
+const currentFrame = i =>
+  `frames/ezgif-frame-${String(i).padStart(3,'0')}.jpg`;
+
+const images = [];
+const canvas = document.getElementById("bg-canvas");
+const context = canvas.getContext("2d");
+
+function resizeCanvas(){
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
+/* preload images */
+for(let i=1;i<=frameCount;i++){
+  const img = new Image();
+  img.src = currentFrame(i);
+  images.push(img);
+}
+
+/* draw frame */
+function drawFrame(index){
+  const img = images[index];
+  if(!img) return;
+
+  const scale = Math.max(
+    canvas.width / img.width,
+    canvas.height / img.height
+  );
+
+  const x = (canvas.width - img.width * scale)/2;
+  const y = (canvas.height - img.height * scale)/2;
+
+  context.clearRect(0,0,canvas.width,canvas.height);
+  context.drawImage(
+    img,
+    0,0,img.width,img.height,
+    x,y,img.width*scale,img.height*scale
+  );
+}
+
+/* scroll control */
+window.addEventListener("scroll", () => {
+  const scrollTop = document.documentElement.scrollTop;
+  const maxScroll =
+    document.documentElement.scrollHeight - window.innerHeight;
+
+  const frameIndex = Math.min(
+    frameCount - 1,
+    Math.floor((scrollTop / maxScroll) * frameCount)
+  );
+
+  drawFrame(frameIndex);
+});
+
+/* first frame */
+images[0].onload = () => drawFrame(0);
+</script>
+
+</body>
+</html>
